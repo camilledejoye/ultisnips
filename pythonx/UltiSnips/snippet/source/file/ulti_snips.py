@@ -61,7 +61,11 @@ def find_all_snippet_directories() -> List[str]:
             pth = normalize_file_path(
                 os.path.expanduser(os.path.join(rtp, snippet_dir))
             )
-            all_dirs.append(pth)
+            if '*' in pth:
+                for fn in glob.glob(pth):
+                    all_dirs.append(fn)
+            else:
+                all_dirs.append(pth)
     return all_dirs
 
 
